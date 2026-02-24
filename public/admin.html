@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EduShine Admin</title>
+  <style>
+    body { margin: 0; font-family: Arial; display: flex; }
+    .sidebar {
+      width: 230px;
+      background: #1e293b;
+      color: white;
+      height: 100vh;
+      padding: 20px;
+    }
+    .sidebar h2 { margin-top: 0; }
+    .sidebar button {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #334155;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .sidebar button:hover { background: #475569; }
+
+    .content { flex: 1; padding: 30px; }
+    .hidden { display: none; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    th { background: #f1f5f9; }
+
+    .active { color: green; font-weight: bold; }
+    .inactive { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>EduShine Admin</h2>
+  <button onclick="showTab('dashboard')">Dashboard</button>
+  <button onclick="showTab('create')">Create Student</button>
+  <button onclick="showTab('disable')">Disable Students</button>
+  <button onclick="showTab('content')">Add Study Content</button>
+  <button onclick="showTab('exam')">Add Exam Questions</button>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="content">
+
+  <!-- Dashboard -->
+  <div id="dashboardTab">
+    <h2>All Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Create Student -->
+  <div id="createTab" class="hidden">
+    <h2>Create Student</h2>
+
+    <input type="text" id="studentName" placeholder="Student Name"><br><br>
+    <input type="email" id="newEmail" placeholder="Parent Email"><br><br>
+    <input type="password" id="newPassword" placeholder="Password"><br><br>
+
+    <select id="studentClass">
+      <option value="6">Class 6</option>
+      <option value="7">Class 7</option>
+      <option value="8">Class 8</option>
+      <option value="9">Class 9</option>
+      <option value="10">Class 10</option>
+    </select>
+
+    <select id="studentSubject">
+      <option value="Maths">Maths</option>
+      <option value="Science">Science</option>
+    </select>
+
+    <br><br>
+    <button onclick="createStudent()">Add Student</button>
+    <p id="statusMessage"></p>
+  </div>
+
+  <!-- Disable -->
+  <div id="disableTab" class="hidden">
+    <h2>Enable / Disable Students</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="disableTable"></tbody>
+    </table>
+  </div>
+
+  <!-- Study Content -->
+  <div id="contentTab" class="hidden">
+    <h2>Add Study Content</h2>
+
+    <input type="text" id="contentChapter" placeholder="Chapter Name"><br><br>
+    <input type="text" id="contentTitle" placeholder="Title"><br><br>
+
+    <select id="contentClass">
+      <option value="6">Class 6</option>
+      <option value="7">Class 7</option>
+      <option value="8">Class 8</option>
+      <option value="9">Class 9</option>
+      <option value="10">Class 10</option>
+    </select>
+
+    <select id="contentSubject">
+      <option value="Maths">Maths</option>
+      <option value="Science">Science</option>
+    </select>
+
+    <br><br>
+    <input type="text" id="driveLink" placeholder="Google Drive Link"><br><br>
+
+    <button onclick="addContent()">Add Content</button>
+    <p id="contentStatus"></p>
+
+    <h3>Existing Study Content</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Chapter</th>
+          <th>Title</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="contentTableAdmin"></tbody>
+    </table>
+  </div>
+
+  <!-- Exam Questions -->
+  <div id="examTab" class="hidden">
+    <h2>Add Exam Questions</h2>
+
+    <input type="text" id="examChapter" placeholder="Chapter Name"><br><br>
+    <input type="text" id="examTitle" placeholder="Exam Title"><br><br>
+
+    <select id="examClass">
+      <option value="6">Class 6</option>
+      <option value="7">Class 7</option>
+      <option value="8">Class 8</option>
+      <option value="9">Class 9</option>
+      <option value="10">Class 10</option>
+    </select>
+
+    <select id="examSubject">
+      <option value="Maths">Maths</option>
+      <option value="Science">Science</option>
+      <option value="Maths&Science">Science</option>
+    </select>
+
+    <br><br>
+    <input type="text" id="examDriveLink" placeholder="Google Drive Link"><br><br>
+
+    <button onclick="addExam()">Add Exam</button>
+    <p id="examStatus"></p>
+
+    <h3>Existing Exams</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Subject</th>
+          <th>Chapter</th>
+          <th>Title</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="examTableAdmin"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

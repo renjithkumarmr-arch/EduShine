@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>EduShine Tuition | Maths & Science Classes 6-10</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar img { height: 55px; }
+
+    .nav-buttons a {
+      text-decoration: none;
+      margin-left: 15px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: white;
+    }
+
+    .login-btn { background: #1e40af; }
+    .whatsapp-btn { background: #16a34a; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 90px 20px;
+      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+    }
+
+    .badge {
+      display: inline-block;
+      background: #dc2626;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .hero h2 {
+      font-size: 20px;
+      color: #334155;
+      margin-bottom: 25px;
+    }
+
+    .cta-buttons a {
+      display: inline-block;
+      margin: 10px;
+      padding: 14px 25px;
+      font-size: 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
+
+    .primary-btn { background: #2563eb; }
+    .secondary-btn { background: #f97316; }
+
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 30px;
+      margin-bottom: 20px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .feature-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    /* Contact */
+    .contact {
+      background: #1e293b;
+      color: white;
+      padding: 50px 20px;
+    }
+
+    .contact a {
+      color: #22c55e;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background: #0f172a;
+      color: #94a3b8;
+    }
+
+    /* Floating WhatsApp */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      padding: 15px 18px;
+      border-radius: 50%;
+      font-size: 22px;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <img src="logo.png" alt="EduShine Logo">
+  <div class="nav-buttons">
+    <a href="login.html" class="login-btn">Student Login</a>
+    <a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
+       target="_blank" 
+       class="whatsapp-btn">
+       WhatsApp
+    </a>
+  </div>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="badge">Limited Seats Available</div>
+  <h1>Empowering Students in Maths & Science</h1>
+  <h2>Classes 6 – 10 | Online & Offline | Sarjapur–Attibele Road</h2>
+
+  <div class="cta-buttons">
+    <a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
+       target="_blank" 
+       class="primary-btn">
+       Enroll Now
+    </a>
+    <a href="login.html" class="secondary-btn">
+       Student Login
+    </a>
+  </div>
+</div>
+
+<!-- Why Choose -->
+<section>
+  <div class="section-title">Why Choose EduShine?</div>
+  <div class="features">
+    <div class="feature-box">
+      <h3>Concept Clarity</h3>
+      <p>Strong foundation building with step-by-step explanation.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Small Batch Size</h3>
+      <p>Personal attention for every student.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Weekly Tests</h3>
+      <p>Regular practice and performance tracking.</p>
+    </div>
+
+    <div class="feature-box">
+      <h3>Board Exam Focus</h3>
+      <p>Structured preparation for academic excellence.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<div class="contact">
+  <h2>Contact Us</h2>
+  <p>📍 Villa 125, Celebrity Pride Access, Phase 2, Bidirguppe,<br>
+     Sarjapur–Attibele Road</p>
+
+  <p>📞 <a href="tel:+918105229988">+91 8105229988</a></p>
+
+  <p>
+    ⭐ View Reviews on 
+    <a href="https://maps.app.goo.gl/YfTWSocNpR19gDqr5" target="_blank">
+      Google Business Profile
+    </a>
+  </p>
+</div>
+
+<footer>
+  © 2026 EduShine Maths & Science Tuition. All Rights Reserved.
+</footer>
+
+<a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
+   target="_blank" 
+   class="floating-whatsapp">
+   💬
+</a>
+
+</body>
+</html>

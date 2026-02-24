@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Dashboard</title>
+  <style>
+    body { font-family: Arial; padding: 30px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    iframe { width: 100%; height: 500px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+
+<h2>My Study Content</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Type</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="contentTable"></tbody>
+</table>
+
+<div id="previewArea"></div>
+
+<script type="module" src="student.js"></script>
+</body>
+</html>
