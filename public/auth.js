@@ -3,7 +3,7 @@ import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/fir
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDuGfLiR26UIpS3h_wU7c-F8fouRC2Xd6I",
+  apiKey: "AIzaSyC6n_1bYi3-cT6OlanZv099gnrvY_xhdpA",
   authDomain: "edushine--tuition.firebaseapp.com",
   projectId: "edushine--tuition",
   storageBucket: "edushine--tuition.firebasestorage.app",
