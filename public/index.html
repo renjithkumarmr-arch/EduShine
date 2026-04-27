@@ -1,231 +1,250 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>EduShine Tuition | Maths & Science Classes 6-10</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EduShine Tuition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+      background: #f5f7fa;
+      text-align: center;
     }
 
-    /* Navbar */
-    .navbar {
+    header {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
+      padding: 10px 20px;
       background: white;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000;
     }
 
-    .navbar img { height: 55px; }
-
-    .nav-buttons a {
-      text-decoration: none;
-      margin-left: 15px;
-      padding: 10px 18px;
-      border-radius: 6px;
-      font-weight: bold;
+    .call-btn {
+      background: green;
       color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      text-decoration: none;
     }
 
-    .login-btn { background: #1e40af; }
-    .whatsapp-btn { background: #16a34a; }
-
-    /* Hero */
     .hero {
-      text-align: center;
-      padding: 90px 20px;
-      background: linear-gradient(135deg, #e0f2fe, #fef3c7);
+      padding: 30px 15px;
+      background: linear-gradient(to bottom, #eef2f3, #dfe9f3);
     }
 
     .badge {
-      display: inline-block;
-      background: #dc2626;
+      background: red;
       color: white;
-      padding: 8px 18px;
+      padding: 8px 15px;
       border-radius: 20px;
-      font-size: 14px;
-      margin-bottom: 20px;
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    .hero h2 {
-      font-size: 20px;
-      color: #334155;
-      margin-bottom: 25px;
-    }
-
-    .cta-buttons a {
       display: inline-block;
-      margin: 10px;
-      padding: 14px 25px;
-      font-size: 16px;
+    }
+
+    .demo-btn {
+      margin-top: 15px;
+      padding: 12px 20px;
+      background: #ff6b00;
+      color: white;
+      border: none;
       border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      color: white;
     }
 
-    .primary-btn { background: #2563eb; }
-    .secondary-btn { background: #f97316; }
-
-    /* Sections */
-    section {
-      padding: 60px 20px;
-      text-align: center;
-    }
-
-    .section-title {
-      font-size: 30px;
-      margin-bottom: 20px;
-    }
-
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-
-    .feature-box {
+    .section {
+      padding: 30px 15px;
       background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      margin-top: 10px;
     }
 
-    /* Contact */
-    .contact {
-      background: #1e293b;
-      color: white;
-      padding: 50px 20px;
-    }
-
-    .contact a {
-      color: #22c55e;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer {
-      text-align: center;
+    .map-container {
+      width: 100%;
+      height: 300px;
       padding: 15px;
-      background: #0f172a;
-      color: #94a3b8;
     }
 
-    /* Floating WhatsApp */
-    .floating-whatsapp {
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      border: 0;
+    }
+
+    .whatsapp-btn {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
+      bottom: 90px;
+      right: 15px;
       background: #25D366;
       color: white;
-      padding: 15px 18px;
-      border-radius: 50%;
-      font-size: 22px;
-      text-decoration: none;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      padding: 10px 15px;
+      border-radius: 30px;
     }
+
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      display: flex;
+    }
+
+    .sticky-cta a {
+      flex: 1;
+      padding: 15px;
+      color: white;
+      text-decoration: none;
+    }
+
+    .call-now { background: #2c5cc5; }
+    .whatsapp-now { background: green; }
+
+    .demo-form {
+      display: none;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-box {
+      background: white;
+      padding: 20px;
+      width: 300px;
+      border-radius: 10px;
+    }
+
+    .form-box input, select {
+      width: 100%;
+      margin: 8px 0;
+      padding: 10px;
+    }
+
+    #submitBtn {
+      width: 100%;
+      padding: 10px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      background: gray;
+    }
+
   </style>
 </head>
+
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-  <img src="logo.png" alt="EduShine Logo">
-  <div class="nav-buttons">
-    <a href="login.html" class="login-btn">Student Login</a>
-    <a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
-       target="_blank" 
-       class="whatsapp-btn">
-       WhatsApp
-    </a>
-  </div>
-</div>
+<header>
+  <h2>EduShine</h2>
+  <a href="tel:918105229988" class="call-btn">Call Now</a>
+</header>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="hero">
   <div class="badge">Limited Seats Available</div>
-  <h1>Empowering Students in Maths & Science</h1>
-  <h2>Classes 6 – 10 | Online & Offline | Sarjapur–Attibele Road</h2>
 
-  <div class="cta-buttons">
-    <a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
-       target="_blank" 
-       class="primary-btn">
-       Enroll Now
-    </a>
-    <a href="login.html" class="secondary-btn">
-       Student Login
-    </a>
-  </div>
+  <h1>Struggling with Maths & Science?</h1>
+  <h2>Improve Your Child’s Marks with Expert Guidance</h2>
+
+  <p>Classes 6 – 10 | Sarjapur–Attibele Road</p>
+
+  <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc" width="250">
+
+  <br>
+
+  <button class="demo-btn" onclick="openForm()">Book Free Demo Class</button>
 </div>
 
-<!-- Why Choose -->
-<section>
-  <div class="section-title">Why Choose EduShine?</div>
-  <div class="features">
-    <div class="feature-box">
-      <h3>Concept Clarity</h3>
-      <p>Strong foundation building with step-by-step explanation.</p>
-    </div>
+<!-- TRUST SECTION -->
+<div class="section">
+  <h2>Why Parents Choose EduShine</h2>
 
-    <div class="feature-box">
-      <h3>Small Batch Size</h3>
-      <p>Personal attention for every student.</p>
-    </div>
+  <p><b>✔ Strong Concept Clarity</b></p>
+  <p><b>✔ Weekly Tests & Practice</b></p>
+  <p><b>✔ Individual Attention</b></p>
+  <p><b>⭐ Positive Parent Feedback</b></p>
 
-    <div class="feature-box">
-      <h3>Weekly Tests</h3>
-      <p>Regular practice and performance tracking.</p>
-    </div>
-
-    <div class="feature-box">
-      <h3>Board Exam Focus</h3>
-      <p>Structured preparation for academic excellence.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Contact -->
-<div class="contact">
-  <h2>Contact Us</h2>
-  <p>📍 Villa 125, Celebrity Pride Access, Phase 2, Bidirguppe,<br>
-     Sarjapur–Attibele Road</p>
-
-  <p>📞 <a href="tel:+918105229988">+91 8105229988</a></p>
-
-  <p>
-    ⭐ View Reviews on 
-    <a href="https://maps.app.goo.gl/YfTWSocNpR19gDqr5" target="_blank">
-      Google Business Profile
-    </a>
-  </p>
+  <button class="demo-btn" onclick="openForm()">Book Free Demo</button>
 </div>
 
-<footer>
-  © 2026 EduShine Maths & Science Tuition. All Rights Reserved.
-</footer>
+<!-- MAP -->
+<div class="map-container">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d270.0726009215141!2d77.777378925445!3d12.806710484516092!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae73dce71ff489%3A0xb875f822ba6b59e3!2sEduShine%20Maths%20and%20Science%20Tuition!5e1!3m2!1sen!2sin"
+    loading="lazy">
+  </iframe>
+</div>
 
-<a href="https://wa.me/918105229988?text=Hello%20I%20am%20interested%20in%20EduShine%20Classes" 
-   target="_blank" 
-   class="floating-whatsapp">
-   💬
+<a href="https://www.google.com/maps?q=EduShine" target="_blank">
+  <button>Get Directions</button>
 </a>
+
+<!-- FLOATING -->
+<a class="whatsapp-btn" href="https://wa.me/918105229988">WhatsApp</a>
+
+<!-- DEMO FORM -->
+<div id="demoForm" class="demo-form">
+  <div class="form-box">
+    <h3>Book Demo</h3>
+
+    <input id="name" placeholder="Name" onkeyup="checkForm()">
+    <input id="phone" placeholder="Phone" onkeyup="checkForm()">
+
+    <select id="class" onchange="checkForm()">
+      <option value="">Select Class</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10</option>
+    </select>
+
+    <button id="submitBtn" onclick="submitDemo()" disabled>Submit</button>
+    <button onclick="closeForm()">Close</button>
+  </div>
+</div>
+
+<!-- STICKY CTA -->
+<div class="sticky-cta">
+  <a href="tel:+918105229988" class="call-now">Call Now</a>
+  <a href="https://wa.me/918105229988" class="whatsapp-now">WhatsApp</a>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("demoForm").style.display = "flex";
+}
+
+function closeForm() {
+  document.getElementById("demoForm").style.display = "none";
+}
+
+function checkForm() {
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const cls = document.getElementById("class").value;
+  const btn = document.getElementById("submitBtn");
+
+  if (name && phone && cls && phone.length >= 10) {
+    btn.disabled = false;
+    btn.style.background = "#ff6b00";
+  } else {
+    btn.disabled = true;
+    btn.style.background = "gray";
+  }
+}
+
+function submitDemo() {
+  const name = document.getElementById("name").value;
+  const phone = document.getElementById("phone").value;
+  const cls = document.getElementById("class").value;
+
+  const msg = `Demo Request:%0AName: ${name}%0APhone: ${phone}%0AClass: ${cls}`;
+  window.open(`https://wa.me/918105229988?text=${msg}`);
+}
+</script>
 
 </body>
 </html>

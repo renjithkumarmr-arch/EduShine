@@ -1,4 +1,8 @@
+// ===============================
+// Firebase CDN Imports
+// ===============================
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
 import {
   getAuth,
   signOut,
@@ -16,251 +20,192 @@ import {
   deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
+// ===============================
+// Firebase Config
+// ===============================
 const firebaseConfig = {
-  apiKey: "AIzaSyC6n_1bYi3-cT6OlanZv099gnrvY_xhdpA",
+  apiKey: "YOUR_NEW_RESTRICTED_API_KEY",
   authDomain: "edushine--tuition.firebaseapp.com",
-  projectId: "edushine--tuition"
+  projectId: "edushine--tuition",
+  storageBucket: "edushine--tuition.firebasestorage.app",
+  messagingSenderId: "525681155706",
+  appId: "1:525681155706:web:a4221f1cc4cacdf7a765c3"
 };
 
+
+// ===============================
+// Initialize Firebase
+// ===============================
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-// Protect Admin
-onAuthStateChanged(auth, async (user) => {
-  if (!user) window.location.href = "index.html";
+// ===============================
+// SIMPLE & STABLE PAGE PROTECTION
+// ===============================
+onAuthStateChanged(auth, (user) => {
+  console.log("Auth changed:", user);
+
+  if (user) {
+    console.log("Logged in UID:", user.uid);
+  } else {
+    console.log("User is logged out");
+  }
 });
 
 
-// Logout
+// ===============================
+// LOGOUT
+// ===============================
 window.logout = async function () {
   await signOut(auth);
-  window.location.href = "index.html";
+  window.location.href = "login.html";
 };
 
 
-// Tab Switch
-window.showTab = function(tab) {
-  const tabs = ["dashboardTab","createTab","disableTab","contentTab","examTab"];
-  tabs.forEach(id => document.getElementById(id).classList.add("hidden"));
-
-  if (tab === "dashboard") {
-    document.getElementById("dashboardTab").classList.remove("hidden");
-    loadStudents();
-  }
-  if (tab === "create")
-    document.getElementById("createTab").classList.remove("hidden");
-  if (tab === "disable") {
-    document.getElementById("disableTab").classList.remove("hidden");
-    loadDisableStudents();
-  }
-  if (tab === "content") {
-    document.getElementById("contentTab").classList.remove("hidden");
-    loadStudyContent();
-  }
-  if (tab === "exam") {
-    document.getElementById("examTab").classList.remove("hidden");
-    loadExams();
-  }
-};
-
-
-// Create Student
+// ===============================
+// CREATE STUDENT (ADMIN ONLY)
+// ===============================
 window.createStudent = async function () {
 
-  const name = studentName.value;
-  const email = newEmail.value;
-  const password = newPassword.value;
-  const cls = studentClass.value;
-  const subject = studentSubject.value;
+  const name = document.getElementById("studentName").value;
+  const email = document.getElementById("newEmail").value;
+  const password = document.getElementById("newPassword").value;
+  const studentClass = document.getElementById("studentClass").value;
+  const studentSubject = document.getElementById("studentSubject").value;
+  const statusBox = document.getElementById("statusMessage");
 
-  const secondaryApp = initializeApp(firebaseConfig, "Secondary");
-  const secondaryAuth = getAuth(secondaryApp);
-
-  const userCred = await createUserWithEmailAndPassword(
-    secondaryAuth, email, password
-  );
-
-  await secondaryAuth.signOut();
-
-  await setDoc(doc(collection(db, "users")), {
-    name, email,
-    class: cls,
-    subject,
-    role: "student",
-    status: "Active",
-    createdAt: new Date()
-  });
-
-  statusMessage.innerText = "Student created ✅";
-  loadStudents();
-};
-
-
-// Load Students
-async function loadStudents() {
-  studentTable.innerHTML = "";
-  const snapshot = await getDocs(collection(db,"users"));
-  snapshot.forEach(docSnap => {
-    const d = docSnap.data();
-    if (d.role === "student") {
-      studentTable.innerHTML += `
-        <tr>
-          <td>${d.name}</td>
-          <td>${d.class}</td>
-          <td>${d.subject}</td>
-          <td class="${d.status==='Active'?'active':'inactive'}">${d.status}</td>
-        </tr>`;
-    }
-  });
-}
-
-
-// Disable
-async function loadDisableStudents() {
-  disableTable.innerHTML="";
-  const snapshot = await getDocs(collection(db,"users"));
-  snapshot.forEach(docSnap=>{
-    const d=docSnap.data();
-    if(d.role==="student"){
-      disableTable.innerHTML+=`
-      <tr>
-        <td>${d.name}</td>
-        <td>${d.status}</td>
-        <td>
-          <button onclick="toggleStatus('${docSnap.id}','${d.status}')">
-            ${d.status==="Active"?"Disable":"Enable"}
-          </button>
-        </td>
-      </tr>`;
-    }
-  });
-}
-
-window.toggleStatus = async function(id,status){
-  await setDoc(doc(db,"users",id),
-    {status: status==="Active"?"Inactive":"Active"},
-    {merge:true});
-  loadDisableStudents();
-};
-
-
-// Add Study Content
-window.addContent = async function(){
-  await setDoc(doc(collection(db,"studyContent")),{
-    chapter: contentChapter.value,
-    title: contentTitle.value,
-    class: contentClass.value,
-    subject: contentSubject.value,
-    driveLink: driveLink.value,
-    createdAt: new Date()
-  });
-  contentStatus.innerText="Content added ✅";
-  loadStudyContent();
-};
-
-
-// Load Study Content
-async function loadStudyContent(){
-  contentTableAdmin.innerHTML="";
-  const snapshot=await getDocs(collection(db,"studyContent"));
-  snapshot.forEach(docSnap=>{
-    const d=docSnap.data();
-    contentTableAdmin.innerHTML+=`
-      <tr>
-        <td>${d.class}</td>
-        <td>${d.subject}</td>
-        <td>${d.chapter}</td>
-        <td>${d.title}</td>
-        <td><button onclick="deleteStudy('${docSnap.id}')">Delete</button></td>
-      </tr>`;
-  });
-}
-
-window.deleteStudy = async function(id){
-  await deleteDoc(doc(db,"studyContent",id));
-  loadStudyContent();
-};
-
-
-/// ===============================
-// Add Exam
-// ===============================
-window.addExam = async function() {
-
-  const chapterInput = document.getElementById("examChapter");
-  const titleInput = document.getElementById("examTitle");
-  const classInput = document.getElementById("examClass");
-  const subjectInput = document.getElementById("examSubject");
-  const linkInput = document.getElementById("examDriveLink");
-  const status = document.getElementById("examStatus");
-
-  if (!chapterInput || !titleInput || !linkInput) {
-    console.error("Exam inputs not found in DOM");
-    return;
-  }
-
-  const chapter = chapterInput.value.trim();
-  const title = titleInput.value.trim();
-  const cls = classInput.value;
-  const subject = subjectInput.value;
-  const link = linkInput.value.trim();
-
-  if (!chapter || !title || !link) {
-    status.innerText = "Please fill all fields.";
+  if (!name || !email || !password) {
+    statusBox.innerText = "Please fill all fields.";
+    statusBox.style.color = "red";
     return;
   }
 
   try {
 
-    const examRef = doc(collection(db, "examQuestions"));
+    // Secondary app so admin does not logout
+    const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+    const secondaryAuth = getAuth(secondaryApp);
 
-    await setDoc(examRef, {
-      chapter: chapter,
-      title: title,
-      class: cls,
-      subject: subject,
-      driveLink: link,
+    const userCred = await createUserWithEmailAndPassword(
+      secondaryAuth,
+      email,
+      password
+    );
+
+    const uid = userCred.user.uid;
+
+    await setDoc(doc(db, "users", uid), {
+      name: name,
+      email: email,
+      role: "student",
+      class: studentClass,
+      subject: studentSubject,
+      status: "Active",
       createdAt: new Date()
     });
 
-    status.innerText = "Exam added successfully ✅";
+    await secondaryAuth.signOut();
 
-    chapterInput.value = "";
-    titleInput.value = "";
-    linkInput.value = "";
-
-    loadExams();
+    statusBox.innerText = "Student created successfully ✅";
+    statusBox.style.color = "green";
 
   } catch (error) {
-    console.error("Exam Save Error:", error);
-    status.innerText = error.message;
+    statusBox.innerText = error.message;
+    statusBox.style.color = "red";
   }
 };
 
 
-// Load Exams
-async function loadExams(){
-  examTableAdmin.innerHTML="";
-  const snapshot=await getDocs(collection(db,"examQuestions"));
-  snapshot.forEach(docSnap=>{
-    const d=docSnap.data();
-    examTableAdmin.innerHTML+=`
-      <tr>
-        <td>${d.class}</td>
-        <td>${d.subject}</td>
-        <td>${d.chapter}</td>
-        <td>${d.title}</td>
-        <td><button onclick="deleteExam('${docSnap.id}')">Delete</button></td>
-      </tr>`;
+// ===============================
+// LOAD STUDENTS (ADMIN)
+// ===============================
+async function loadStudents() {
+
+  const table = document.getElementById("studentTable");
+  if (!table) return;
+
+  table.innerHTML = "";
+
+  const snapshot = await getDocs(collection(db, "users"));
+
+  snapshot.forEach((docSnap) => {
+    const data = docSnap.data();
+
+    if (data.role === "student") {
+      table.innerHTML += `
+        <tr>
+          <td>${data.name}</td>
+          <td>${data.class}</td>
+          <td>${data.subject}</td>
+          <td style="color:${data.status === "Active" ? "green" : "red"}">
+            ${data.status}
+          </td>
+          <td>
+            <button onclick="toggleStatus('${docSnap.id}', '${data.status}')">
+              ${data.status === "Active" ? "Disable" : "Enable"}
+            </button>
+            <button onclick="deleteStudent('${docSnap.id}')">
+              Delete
+            </button>
+          </td>
+        </tr>
+      `;
+    }
   });
 }
 
-window.deleteExam = async function(id){
-  await deleteDoc(doc(db,"examQuestions",id));
-  loadExams();
+
+// ===============================
+// ENABLE / DISABLE STUDENT
+// ===============================
+window.toggleStatus = async function (uid, currentStatus) {
+
+  const newStatus =
+    currentStatus === "Active" ? "Inactive" : "Active";
+
+  await setDoc(doc(db, "users", uid), {
+    status: newStatus
+  }, { merge: true });
+
+  loadStudents();
 };
 
 
-showTab("dashboard");
+// ===============================
+// DELETE STUDENT (Firestore Only)
+// ===============================
+window.deleteStudent = async function (uid) {
+
+  if (!confirm("Delete this student?")) return;
+
+  await deleteDoc(doc(db, "users", uid));
+  loadStudents();
+};
+
+
+// ===============================
+// TAB SWITCH
+// ===============================
+window.showTab = function (tab) {
+
+  document.getElementById("dashboardTab")?.classList.add("hidden");
+  document.getElementById("createTab")?.classList.add("hidden");
+
+  if (tab === "dashboard") {
+    document.getElementById("dashboardTab")?.classList.remove("hidden");
+    loadStudents();
+  }
+
+  if (tab === "create") {
+    document.getElementById("createTab")?.classList.remove("hidden");
+  }
+};
+
+
+// Auto-load students if admin page
+if (window.location.pathname.endsWith("admin.html")) {
+  loadStudents();
+}
